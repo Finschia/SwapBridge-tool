@@ -1,0 +1,24 @@
+#!/bin/sh
+
+script_file=$0
+
+# give a guide to the user
+usage() {
+	cat<<EOF >&2
+Usage: $script_file [sender] [receiver]
+
+Example:
+    $script_file link146asaycmtydq45kxc8evntqfgepagygelel00h 0x000000000000000000000000000000000000dEaD
+EOF
+}
+
+export SENDER=$1
+export RECEIVER=$2
+if [ -z "$SENDER" ] || [ -z "$RECEIVER" ]
+then
+	usage
+	exit 2
+fi
+
+script_dir=$(dirname $script_file)
+SOURCED=y sh $script_dir/swap-and-transfer-all.sh
